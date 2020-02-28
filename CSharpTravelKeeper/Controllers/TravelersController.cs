@@ -7,35 +7,45 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CSharpTravelKeeper.Data;
 using CSharpTravelKeeper.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace CSharpTravelKeeper.Controllers
 {
+    [Authorize]
+
     public class TravelersController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public TravelersController(ApplicationDbContext context)
+        public TravelersController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Travelers
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Traveler.Include(t => t.ApplicationUser).Include(t => t.Trip);
-            return View(await applicationDbContext.ToListAsync());
+            var user = await GetCurrentUserAsync();
+
+            var travelers = _context.Traveler.Where(t => t.ApplicationUserId == user.Id);
+            return View(await travelers.ToListAsync());
         }
 
         // GET: Travelers/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            var user = await GetCurrentUserAsync();
+
             if (id == null)
             {
                 return NotFound();
             }
 
             var traveler = await _context.Traveler
-                .Include(t => t.ApplicationUser)
+                .Where(t => t.ApplicationUserId == user.Id)
                 .Include(t => t.Trip)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (traveler == null)
@@ -50,7 +60,7 @@ namespace CSharpTravelKeeper.Controllers
         public IActionResult Create()
         {
             ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id");
-            ViewData["TripId"] = new SelectList(_context.Trip, "Id", "EndDate");
+            ViewData["TripId"] = new SelectList(_context.Trip, "Id", "Id");
             return View();
         }
 
@@ -61,14 +71,17 @@ namespace CSharpTravelKeeper.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,FellowTraveler,Email,TravelerWebsite,ApplicationUserId,TripId")] Traveler traveler)
         {
+            var user = await GetCurrentUserAsync();
+
+
             if (ModelState.IsValid)
             {
                 _context.Add(traveler);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", traveler.ApplicationUserId);
-            ViewData["TripId"] = new SelectList(_context.Trip, "Id", "EndDate", traveler.TripId);
+            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", traveler.ApplicationUserId == user.Id);
+            ViewData["TripId"] = new SelectList(_context.Trip, "Id", "Id", traveler.TripId);
             return View(traveler);
         }
 
@@ -162,5 +175,7 @@ namespace CSharpTravelKeeper.Controllers
         {
             return _context.Traveler.Any(e => e.Id == id);
         }
+        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
+
     }
 }
