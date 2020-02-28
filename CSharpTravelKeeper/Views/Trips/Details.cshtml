@@ -1,0 +1,83 @@
+﻿@model CSharpTravelKeeper.Models.Trip
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Trip</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TripTitle)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TripTitle)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.StartDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.StartDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.EndDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.EndDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IsFavorite)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IsFavorite)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Notes)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Notes)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Photos)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Photos)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ApplicationUser)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ApplicationUser.Id)
+        </dd>
+        <dt class="col-sm-2">
+            Travelers
+        </dt>
+        <dd class="col-sm-10">
+            @foreach (var traveler in Model.Travelers)
+            {
+            <span>
+                <a asp-action="Details" asp-controller="Travelers" asp-route-id="@traveler.Id">@Html.DisplayFor(modelItem => traveler.FellowTraveler)</a> <br />
+
+            </span>
+            }
+        </dd>
+        <dt class="col-sm-2">
+              Cities  
+        </dt>
+        <dd class="col-sm-10">
+            @foreach (var city in Model.Cities)
+            {
+            <span>
+                <a asp-action="Details" asp-controller="Cities" asp-route-id="@city.Id">@Html.DisplayFor(modelItem => city.CityName)</a> <br />
+            </span>
+            }
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
