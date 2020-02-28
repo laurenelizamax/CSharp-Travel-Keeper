@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CSharpTravelKeeper.Models
 {
-    public class Event
+    public class ActivityEvent
     {
         public int Id { get; set; }
 

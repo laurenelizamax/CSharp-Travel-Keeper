@@ -33,7 +33,7 @@ namespace CSharpTravelKeeper.Controllers
             var cities = _context.City.Where(c => c.ApplicationUserId == user.Id)
                 .Include(c => c.Transports)
                 .Include(c => c.Lodgings)
-                .Include(c => c.Events);
+                .Include(c => c.ActivityEvents);
             return View(await cities.ToListAsync());
         }
 
@@ -51,7 +51,7 @@ namespace CSharpTravelKeeper.Controllers
                 .Where(c => c.ApplicationUserId == user.Id)
                 .Include(c => c.Transports)
                 .Include(c => c.Lodgings)
-                .Include(c => c.Events)
+                .Include(c => c.ActivityEvents)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (city == null)
             {

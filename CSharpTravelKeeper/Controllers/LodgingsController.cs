@@ -7,86 +7,72 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CSharpTravelKeeper.Data;
 using CSharpTravelKeeper.Models;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 
 namespace CSharpTravelKeeper.Controllers
 {
-    [Authorize]
-
-    public class TripsController : Controller
+    public class LodgingsController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly UserManager<ApplicationUser> _userManager;
 
-        public TripsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        public LodgingsController(ApplicationDbContext context)
         {
             _context = context;
-            _userManager = userManager;
         }
 
-        // GET: Trips
+        // GET: Lodgings
         public async Task<IActionResult> Index()
         {
-            var user = await GetCurrentUserAsync();
-
-            var trips = _context.Trip.Where(t => t.ApplicationUserId == user.Id)
-                .Include(t => t.Cities)
-                .Include(t => t.Travelers);
-            return View(await trips.ToListAsync());
+            var applicationDbContext = _context.Lodging.Include(l => l.ApplicationUser).Include(l => l.City);
+            return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: Trips/Details/5
+        // GET: Lodgings/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            var user = await GetCurrentUserAsync();
-
             if (id == null)
             {
                 return NotFound();
             }
 
-            var trip = await _context.Trip
-                .Where(t => t.ApplicationUserId == user.Id)
-                .Include(t => t.Travelers)
-                .Include(t => t.Cities)
+            var lodging = await _context.Lodging
+                .Include(l => l.ApplicationUser)
+                .Include(l => l.City)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (trip == null)
+            if (lodging == null)
             {
                 return NotFound();
             }
 
-            return View(trip);
+            return View(lodging);
         }
 
-        // GET: Trips/Create
+        // GET: Lodgings/Create
         public IActionResult Create()
         {
             ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id");
+            ViewData["CityId"] = new SelectList(_context.City, "Id", "Id");
             return View();
         }
 
-        // POST: Trips/Create
+        // POST: Lodgings/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,TripTitle,StartDate,EndDate,IsFavorite,Notes,Photos,ApplicationUserId")] Trip trip)
+        public async Task<IActionResult> Create([Bind("Id,LodgingName,Description,LodgingWebsite,ApplicationUserId,CityId")] Lodging lodging)
         {
-            var user = await GetCurrentUserAsync();
-            trip.ApplicationUserId = user.Id;
-
             if (ModelState.IsValid)
             {
-                _context.Add(trip);
+                _context.Add(lodging);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", trip.ApplicationUserId);
-            return View(trip);
+            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", lodging.ApplicationUserId);
+            ViewData["CityId"] = new SelectList(_context.City, "Id", "Id", lodging.CityId);
+            return View(lodging);
         }
 
-        // GET: Trips/Edit/5
+        // GET: Lodgings/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -94,23 +80,24 @@ namespace CSharpTravelKeeper.Controllers
                 return NotFound();
             }
 
-            var trip = await _context.Trip.FindAsync(id);
-            if (trip == null)
+            var lodging = await _context.Lodging.FindAsync(id);
+            if (lodging == null)
             {
                 return NotFound();
             }
-            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", trip.ApplicationUserId);
-            return View(trip);
+            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", lodging.ApplicationUserId);
+            ViewData["CityId"] = new SelectList(_context.City, "Id", "Id", lodging.CityId);
+            return View(lodging);
         }
 
-        // POST: Trips/Edit/5
+        // POST: Lodgings/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,TripTitle,StartDate,EndDate,IsFavorite,Notes,Photos,ApplicationUserId")] Trip trip)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,LodgingName,Description,LodgingWebsite,ApplicationUserId,CityId")] Lodging lodging)
         {
-            if (id != trip.Id)
+            if (id != lodging.Id)
             {
                 return NotFound();
             }
@@ -119,12 +106,12 @@ namespace CSharpTravelKeeper.Controllers
             {
                 try
                 {
-                    _context.Update(trip);
+                    _context.Update(lodging);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TripExists(trip.Id))
+                    if (!LodgingExists(lodging.Id))
                     {
                         return NotFound();
                     }
@@ -135,11 +122,12 @@ namespace CSharpTravelKeeper.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", trip.ApplicationUserId);
-            return View(trip);
+            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", lodging.ApplicationUserId);
+            ViewData["CityId"] = new SelectList(_context.City, "Id", "Id", lodging.CityId);
+            return View(lodging);
         }
 
-        // GET: Trips/Delete/5
+        // GET: Lodgings/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -147,34 +135,32 @@ namespace CSharpTravelKeeper.Controllers
                 return NotFound();
             }
 
-            var trip = await _context.Trip
-                .Include(t => t.ApplicationUser)
+            var lodging = await _context.Lodging
+                .Include(l => l.ApplicationUser)
+                .Include(l => l.City)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (trip == null)
+            if (lodging == null)
             {
                 return NotFound();
             }
 
-            return View(trip);
+            return View(lodging);
         }
 
-        // POST: Trips/Delete/5
+        // POST: Lodgings/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var trip = await _context.Trip.FindAsync(id);
-            _context.Trip.Remove(trip);
+            var lodging = await _context.Lodging.FindAsync(id);
+            _context.Lodging.Remove(lodging);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool TripExists(int id)
+        private bool LodgingExists(int id)
         {
-            return _context.Trip.Any(e => e.Id == id);
+            return _context.Lodging.Any(e => e.Id == id);
         }
-
-        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
-
     }
 }

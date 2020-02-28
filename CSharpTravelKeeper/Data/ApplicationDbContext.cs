@@ -18,7 +18,7 @@ namespace CSharpTravelKeeper.Data
         public DbSet<Trip> Trip { get; set; }
         public DbSet<City> City { get; set; }
         public DbSet<Traveler> Traveler { get; set; }
-        public DbSet<Event> Event { get; set; }
+        public DbSet<ActivityEvent> ActivityEvent { get; set; }
         public DbSet<Transport> Transport { get; set; }
         public DbSet<Lodging> Lodging { get; set; }
 
@@ -47,7 +47,7 @@ namespace CSharpTravelKeeper.Data
 
 
             modelBuilder.Entity<City>()
-                    .HasMany(c => c.Events)
+                    .HasMany(c => c.ActivityEvents)
                     .WithOne(c => c.City)
                     .OnDelete(DeleteBehavior.Restrict);
 

@@ -16,7 +16,7 @@ namespace CSharpTravelKeeper.Models
         public string ApplicationUserId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
 
-        public List<Event> Events { get; set; }
+        public List<ActivityEvent> ActivityEvents { get; set; }
 
         public List<Lodging> Lodgings { get; set; }
 

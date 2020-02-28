@@ -7,86 +7,72 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CSharpTravelKeeper.Data;
 using CSharpTravelKeeper.Models;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 
 namespace CSharpTravelKeeper.Controllers
 {
-    [Authorize]
-
-    public class TripsController : Controller
+    public class TransportsController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly UserManager<ApplicationUser> _userManager;
 
-        public TripsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        public TransportsController(ApplicationDbContext context)
         {
             _context = context;
-            _userManager = userManager;
         }
 
-        // GET: Trips
+        // GET: Transports
         public async Task<IActionResult> Index()
         {
-            var user = await GetCurrentUserAsync();
-
-            var trips = _context.Trip.Where(t => t.ApplicationUserId == user.Id)
-                .Include(t => t.Cities)
-                .Include(t => t.Travelers);
-            return View(await trips.ToListAsync());
+            var applicationDbContext = _context.Transport.Include(t => t.ApplicationUser).Include(t => t.City);
+            return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: Trips/Details/5
+        // GET: Transports/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            var user = await GetCurrentUserAsync();
-
             if (id == null)
             {
                 return NotFound();
             }
 
-            var trip = await _context.Trip
-                .Where(t => t.ApplicationUserId == user.Id)
-                .Include(t => t.Travelers)
-                .Include(t => t.Cities)
+            var transport = await _context.Transport
+                .Include(t => t.ApplicationUser)
+                .Include(t => t.City)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (trip == null)
+            if (transport == null)
             {
                 return NotFound();
             }
 
-            return View(trip);
+            return View(transport);
         }
 
-        // GET: Trips/Create
+        // GET: Transports/Create
         public IActionResult Create()
         {
             ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id");
+            ViewData["CityId"] = new SelectList(_context.City, "Id", "Id");
             return View();
         }
 
-        // POST: Trips/Create
+        // POST: Transports/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,TripTitle,StartDate,EndDate,IsFavorite,Notes,Photos,ApplicationUserId")] Trip trip)
+        public async Task<IActionResult> Create([Bind("Id,TransportTitle,Notes,ApplicationUserId,CityId")] Transport transport)
         {
-            var user = await GetCurrentUserAsync();
-            trip.ApplicationUserId = user.Id;
-
             if (ModelState.IsValid)
             {
-                _context.Add(trip);
+                _context.Add(transport);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", trip.ApplicationUserId);
-            return View(trip);
+            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", transport.ApplicationUserId);
+            ViewData["CityId"] = new SelectList(_context.City, "Id", "Id", transport.CityId);
+            return View(transport);
         }
 
-        // GET: Trips/Edit/5
+        // GET: Transports/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -94,23 +80,24 @@ namespace CSharpTravelKeeper.Controllers
                 return NotFound();
             }
 
-            var trip = await _context.Trip.FindAsync(id);
-            if (trip == null)
+            var transport = await _context.Transport.FindAsync(id);
+            if (transport == null)
             {
                 return NotFound();
             }
-            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", trip.ApplicationUserId);
-            return View(trip);
+            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", transport.ApplicationUserId);
+            ViewData["CityId"] = new SelectList(_context.City, "Id", "Id", transport.CityId);
+            return View(transport);
         }
 
-        // POST: Trips/Edit/5
+        // POST: Transports/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,TripTitle,StartDate,EndDate,IsFavorite,Notes,Photos,ApplicationUserId")] Trip trip)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,TransportTitle,Notes,ApplicationUserId,CityId")] Transport transport)
         {
-            if (id != trip.Id)
+            if (id != transport.Id)
             {
                 return NotFound();
             }
@@ -119,12 +106,12 @@ namespace CSharpTravelKeeper.Controllers
             {
                 try
                 {
-                    _context.Update(trip);
+                    _context.Update(transport);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TripExists(trip.Id))
+                    if (!TransportExists(transport.Id))
                     {
                         return NotFound();
                     }
@@ -135,11 +122,12 @@ namespace CSharpTravelKeeper.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", trip.ApplicationUserId);
-            return View(trip);
+            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", transport.ApplicationUserId);
+            ViewData["CityId"] = new SelectList(_context.City, "Id", "Id", transport.CityId);
+            return View(transport);
         }
 
-        // GET: Trips/Delete/5
+        // GET: Transports/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -147,34 +135,32 @@ namespace CSharpTravelKeeper.Controllers
                 return NotFound();
             }
 
-            var trip = await _context.Trip
+            var transport = await _context.Transport
                 .Include(t => t.ApplicationUser)
+                .Include(t => t.City)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (trip == null)
+            if (transport == null)
             {
                 return NotFound();
             }
 
-            return View(trip);
+            return View(transport);
         }
 
-        // POST: Trips/Delete/5
+        // POST: Transports/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var trip = await _context.Trip.FindAsync(id);
-            _context.Trip.Remove(trip);
+            var transport = await _context.Transport.FindAsync(id);
+            _context.Transport.Remove(transport);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool TripExists(int id)
+        private bool TransportExists(int id)
         {
-            return _context.Trip.Any(e => e.Id == id);
+            return _context.Transport.Any(e => e.Id == id);
         }
-
-        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
-
     }
 }
