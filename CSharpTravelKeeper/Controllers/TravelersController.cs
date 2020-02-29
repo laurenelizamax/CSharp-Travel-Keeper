@@ -60,7 +60,7 @@ namespace CSharpTravelKeeper.Controllers
         public IActionResult Create()
         {
             ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id");
-            ViewData["TripId"] = new SelectList(_context.Trip, "Id", "Id");
+            ViewData["TripId"] = new SelectList(_context.Trip, "Id", "TripTitle");
             return View();
         }
 
@@ -69,19 +69,20 @@ namespace CSharpTravelKeeper.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FellowTraveler,Email,TravelerWebsite,ApplicationUserId,TripId")] Traveler traveler)
+        public async Task<IActionResult> Create(int tripId, [Bind("Id,FellowTraveler,Email,TravelerWebsite,ApplicationUserId,TripId")] Traveler traveler)
         {
             var user = await GetCurrentUserAsync();
-
+            traveler.TripId = tripId;
+            traveler.ApplicationUserId = user.Id;
 
             if (ModelState.IsValid)
             {
                 _context.Add(traveler);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "Trips", new { id = tripId });
             }
             ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", traveler.ApplicationUserId == user.Id);
-            ViewData["TripId"] = new SelectList(_context.Trip, "Id", "Id", traveler.TripId);
+            ViewData["TripId"] = new SelectList(_context.Trip, "Id", "TripTitle", traveler.TripId);
             return View(traveler);
         }
 
