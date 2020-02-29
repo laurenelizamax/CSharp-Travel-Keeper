@@ -83,10 +83,10 @@ namespace CSharpTravelKeeper.Controllers
         //[HttpPost("Cities/Create/{tripId}")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,CityName,Description,ApplicationUserId,TripId")] City city)
+        public async Task<IActionResult> Create(int tripId, [Bind("Id,CityName,Description,ApplicationUserId,TripId")] City city)
         {
             var user = await GetCurrentUserAsync();
-            //city.TripId = tripId;
+            city.TripId = tripId;
             city.ApplicationUserId = user.Id;
 
             if (ModelState.IsValid)
@@ -94,9 +94,9 @@ namespace CSharpTravelKeeper.Controllers
              
                 _context.Add(city);
                 await _context.SaveChangesAsync();
-                //return RedirectToAction("Details", "Trips", new { id = tripId });
+                return RedirectToAction("Details", "Trips", new { id = tripId });
 
-                return RedirectToAction(nameof(Index));
+                //return RedirectToAction(nameof(Index));
             }
             ViewData["TripId"] = new SelectList(_context.Trip, "Id", "Id", city.TripId);
             return View(city);
