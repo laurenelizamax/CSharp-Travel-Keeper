@@ -7,16 +7,22 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CSharpTravelKeeper.Data;
 using CSharpTravelKeeper.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace CSharpTravelKeeper.Controllers
 {
+    [Authorize]
+
     public class LodgingsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public LodgingsController(ApplicationDbContext context)
+        public LodgingsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Lodgings
@@ -50,7 +56,7 @@ namespace CSharpTravelKeeper.Controllers
         public IActionResult Create()
         {
             ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id");
-            ViewData["CityId"] = new SelectList(_context.City, "Id", "Id");
+            ViewData["CityId"] = new SelectList(_context.City, "Id", "CityName");
             return View();
         }
 
@@ -59,16 +65,20 @@ namespace CSharpTravelKeeper.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,LodgingName,Description,LodgingWebsite,ApplicationUserId,CityId")] Lodging lodging)
+        public async Task<IActionResult> Create(int cityId, [Bind("Id,LodgingName,Description,LodgingWebsite,ApplicationUserId,CityId")] Lodging lodging)
         {
+            var user = await GetCurrentUserAsync();
+            lodging.CityId = cityId;
+            lodging.ApplicationUserId = user.Id;
+
             if (ModelState.IsValid)
             {
                 _context.Add(lodging);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "Cities", new { id = cityId });
             }
-            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", lodging.ApplicationUserId);
-            ViewData["CityId"] = new SelectList(_context.City, "Id", "Id", lodging.CityId);
+            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", lodging.ApplicationUserId == user.Id);
+            ViewData["CityId"] = new SelectList(_context.City, "Id", "CityName", lodging.CityId);
             return View(lodging);
         }
 
@@ -162,5 +172,7 @@ namespace CSharpTravelKeeper.Controllers
         {
             return _context.Lodging.Any(e => e.Id == id);
         }
+        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
+
     }
 }
