@@ -7,23 +7,30 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CSharpTravelKeeper.Data;
 using CSharpTravelKeeper.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace CSharpTravelKeeper.Controllers
 {
+    [Authorize]
+
     public class ActivityEventsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public ActivityEventsController(ApplicationDbContext context)
+        public ActivityEventsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
+
         }
 
         // GET: ActivityEvents
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.ActivityEvent.Include(a => a.ApplicationUser).Include(a => a.City);
-            return View(await applicationDbContext.ToListAsync());
+            var activityEvents = _context.ActivityEvent.Include(a => a.ApplicationUser).Include(a => a.City);
+            return View(await activityEvents.ToListAsync());
         }
 
         // GET: ActivityEvents/Details/5
@@ -50,7 +57,7 @@ namespace CSharpTravelKeeper.Controllers
         public IActionResult Create()
         {
             ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id");
-            ViewData["CityId"] = new SelectList(_context.City, "Id", "Id");
+            ViewData["CityId"] = new SelectList(_context.City, "Id", "CityName");
             return View();
         }
 
@@ -59,16 +66,20 @@ namespace CSharpTravelKeeper.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ActivityName,Description,ActivityWebsite,ApplicationUserId,CityId")] ActivityEvent activityEvent)
+        public async Task<IActionResult> Create(int cityId, [Bind("Id,ActivityName,Description,ActivityWebsite,ApplicationUserId,CityId")] ActivityEvent activityEvent)
         {
+            var user = await GetCurrentUserAsync();
+            activityEvent.CityId = cityId;
+            activityEvent.ApplicationUserId = user.Id;
+
             if (ModelState.IsValid)
             {
                 _context.Add(activityEvent);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "Cities", new { id = cityId });
             }
-            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", activityEvent.ApplicationUserId);
-            ViewData["CityId"] = new SelectList(_context.City, "Id", "Id", activityEvent.CityId);
+            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", activityEvent.ApplicationUserId == user.Id);
+            ViewData["CityId"] = new SelectList(_context.City, "Id", "CityName", activityEvent.CityId);
             return View(activityEvent);
         }
 
@@ -162,5 +173,7 @@ namespace CSharpTravelKeeper.Controllers
         {
             return _context.ActivityEvent.Any(e => e.Id == id);
         }
+        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
+
     }
 }
