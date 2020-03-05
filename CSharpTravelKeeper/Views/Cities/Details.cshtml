@@ -34,12 +34,13 @@
            Lodging
         </dt>
         <dd class="col-sm-10">
-            @foreach (var item in Model.Lodgings)
+            @foreach (var lodging in Model.Lodgings)
             {
             <div>
-               Name: @Html.DisplayFor(modelItem => item.LodgingName) &nbsp;
-               Website: @Html.DisplayFor(modelItem => item.LodgingWebsite) &nbsp;
-               Description: @Html.DisplayFor(modelItem => item.Description) &nbsp;
+                Name: @Html.DisplayFor(modelItem => lodging.LodgingName) &nbsp;
+                Website: @Html.DisplayFor(modelItem => lodging.LodgingWebsite) &nbsp;
+                Description: @Html.DisplayFor(modelItem => lodging.Description) &nbsp;
+                <a asp-action="Edit" asp-controller="Lodgings" asp-route-id="@lodging.Id">Edit</a>
 
             </div>
             }
@@ -48,12 +49,13 @@
             Activities
         </dt>
         <dd class="col-sm-10">
-            @foreach (var item in Model.ActivityEvents)
+            @foreach (var activityEvent in Model.ActivityEvents)
             {
             <div>
-               Name: @Html.DisplayFor(modelItem => item.ActivityName) &nbsp;
-               Website: @Html.DisplayFor(modelItem => item.ActivityWebsite) &nbsp;
-               Description: @Html.DisplayFor(modelItem => item.Description) &nbsp;
+                Name: @Html.DisplayFor(modelItem => activityEvent.ActivityName) &nbsp;
+                Website: @Html.DisplayFor(modelItem => activityEvent.ActivityWebsite) &nbsp;
+                Description: @Html.DisplayFor(modelItem => activityEvent.Description) &nbsp;
+                <a asp-action="Edit" asp-controller="ActivityEvents" asp-route-id="@activityEvent.Id">Edit</a> 
 
             </div>
             }
@@ -62,11 +64,12 @@
             Transportation
         </dt>
         <dd class="col-sm-10">
-            @foreach (var item in Model.Transports)
+            @foreach (var transport in Model.Transports)
             {
             <div>
-              Name:  @Html.DisplayFor(modelItem => item.TransportTitle) &nbsp;
-              Notes:  @Html.DisplayFor(modelItem => item.Notes) &nbsp;
+                Name:  @Html.DisplayFor(modelItem => transport.TransportTitle) &nbsp;
+                Notes:  @Html.DisplayFor(modelItem => transport.Notes) &nbsp;
+                <a asp-action="Edit" asp-controller="Transports" asp-route-id="@transport.Id">Edit</a>
 
             </div>
             }

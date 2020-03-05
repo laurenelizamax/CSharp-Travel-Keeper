@@ -4,15 +4,11 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Trips</h1>
+<h1>My Trips</h1>
 
 <p>
-    <a asp-action="Create">Add Trip</a>
-</p>
-<p>
-    <a asp-action="Create" asp-controller="Cities">Add Cities</a>
-</p>
-<p>
+    <a asp-action="Create">Add Trip</a> |
+    <a asp-action="Create" asp-controller="Cities">Add Cities</a> |
     <a asp-action="Create" asp-controller="Travelers">Add Travelers</a>
 </p>
 <table class="table">
@@ -27,7 +23,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.EndDate)
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.IsFavorite)
             </th>
             <th>
@@ -35,7 +31,7 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Photos)
-            </th>
+            </th>*@
             <th>
                 Travelers
             </th>
@@ -57,7 +53,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.EndDate)
             </td>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.IsFavorite)
             </td>
             <td>
@@ -65,7 +61,7 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Photos)
-            </td>
+            </td>*@
             <td>
                 @foreach (var traveler in item.Travelers)
                 {
