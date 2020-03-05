@@ -98,7 +98,7 @@ namespace CSharpTravelKeeper.Controllers
 
                 //return RedirectToAction(nameof(Index));
             }
-            ViewData["TripId"] = new SelectList(_context.Trip, "Id", "Id", city.TripId);
+            ViewData["TripId"] = new SelectList(_context.Trip, "Id", "TripTitle", city.TripId);
             return View(city);
         }
 
