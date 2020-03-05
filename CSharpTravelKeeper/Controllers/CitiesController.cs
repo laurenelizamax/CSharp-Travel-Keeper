@@ -61,15 +61,7 @@ namespace CSharpTravelKeeper.Controllers
             return View(city);
         }
 
-        // GET: Cities/Create
-        //[HttpGet("Cities/Create/{tripId}")]
 
-        //public IActionResult Create([FromRoute]int tripId)
-        //{
-        //    ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id");
-        //    ViewData["TripId"] = new SelectList(_context.Trip, "Id", "Id");
-        //    return View();
-        //}
 
         public async Task<IActionResult> Create()
         {
@@ -116,7 +108,7 @@ namespace CSharpTravelKeeper.Controllers
                 return NotFound();
             }
             ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", city.ApplicationUserId);
-            ViewData["TripId"] = new SelectList(_context.Trip, "Id", "Id", city.TripId);
+            ViewData["TripId"] = new SelectList(_context.Trip, "Id", "TripTitle", city.TripId);
             return View(city);
         }
 
@@ -131,6 +123,9 @@ namespace CSharpTravelKeeper.Controllers
             {
                 return NotFound();
             }
+
+            var user = await GetCurrentUserAsync();
+            city.ApplicationUserId = user.Id;
 
             if (ModelState.IsValid)
             {
@@ -150,10 +145,10 @@ namespace CSharpTravelKeeper.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Trips");
             }
-            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", city.ApplicationUserId);
-            ViewData["TripId"] = new SelectList(_context.Trip, "Id", "EndDate", city.TripId);
+            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", city.ApplicationUserId == user.Id);
+            ViewData["TripId"] = new SelectList(_context.Trip, "Id", "TripTitle", city.TripId);
             return View(city);
         }
 

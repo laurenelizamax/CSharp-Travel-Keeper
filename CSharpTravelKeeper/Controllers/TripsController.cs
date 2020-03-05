@@ -89,6 +89,8 @@ namespace CSharpTravelKeeper.Controllers
         // GET: Trips/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+             var user = await GetCurrentUserAsync();
+
             if (id == null)
             {
                 return NotFound();
@@ -115,6 +117,9 @@ namespace CSharpTravelKeeper.Controllers
                 return NotFound();
             }
 
+            var user = await GetCurrentUserAsync();
+            trip.ApplicationUserId = user.Id;
+
             if (ModelState.IsValid)
             {
                 try
@@ -135,7 +140,7 @@ namespace CSharpTravelKeeper.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", trip.ApplicationUserId);
+            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", trip.ApplicationUserId == user.Id);
             return View(trip);
         }
 
@@ -149,6 +154,7 @@ namespace CSharpTravelKeeper.Controllers
 
             var trip = await _context.Trip
                 .Include(t => t.ApplicationUser)
+                .Include(t => t.Cities)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (trip == null)
             {
