@@ -100,7 +100,7 @@ namespace CSharpTravelKeeper.Controllers
                 return NotFound();
             }
             ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", traveler.ApplicationUserId);
-            ViewData["TripId"] = new SelectList(_context.Trip, "Id", "EndDate", traveler.TripId);
+            ViewData["TripId"] = new SelectList(_context.Trip, "Id", "TripTitle", traveler.TripId);
             return View(traveler);
         }
 
@@ -115,6 +115,9 @@ namespace CSharpTravelKeeper.Controllers
             {
                 return NotFound();
             }
+
+            var user = await GetCurrentUserAsync();
+            traveler.ApplicationUserId = user.Id;
 
             if (ModelState.IsValid)
             {
@@ -134,10 +137,10 @@ namespace CSharpTravelKeeper.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Trips");
             }
-            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", traveler.ApplicationUserId);
-            ViewData["TripId"] = new SelectList(_context.Trip, "Id", "EndDate", traveler.TripId);
+            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", traveler.ApplicationUserId == user.Id);
+            ViewData["TripId"] = new SelectList(_context.Trip, "Id", "TripTitle", traveler.TripId);
             return View(traveler);
         }
 

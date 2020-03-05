@@ -98,7 +98,7 @@ namespace CSharpTravelKeeper.Controllers
                 return NotFound();
             }
             ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", transport.ApplicationUserId);
-            ViewData["CityId"] = new SelectList(_context.City, "Id", "Id", transport.CityId);
+            ViewData["CityId"] = new SelectList(_context.City, "Id", "CityName", transport.CityId);
             return View(transport);
         }
 
@@ -113,6 +113,9 @@ namespace CSharpTravelKeeper.Controllers
             {
                 return NotFound();
             }
+
+            var user = await GetCurrentUserAsync();
+            transport.ApplicationUserId = user.Id;
 
             if (ModelState.IsValid)
             {
@@ -132,10 +135,10 @@ namespace CSharpTravelKeeper.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Trips");
             }
-            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", transport.ApplicationUserId);
-            ViewData["CityId"] = new SelectList(_context.City, "Id", "Id", transport.CityId);
+            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", transport.ApplicationUserId == user.Id);
+            ViewData["CityId"] = new SelectList(_context.City, "Id", "CityName", transport.CityId);
             return View(transport);
         }
 
