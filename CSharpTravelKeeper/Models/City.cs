@@ -23,6 +23,7 @@ namespace CSharpTravelKeeper.Models
         public List<Transport> Transports { get; set; }
         public int TripId { get; set; }
         public Trip Trip { get; set; }
+        public bool IsActive { get; set; }
 
     }
 }
