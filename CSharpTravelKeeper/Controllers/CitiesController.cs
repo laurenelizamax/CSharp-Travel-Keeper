@@ -25,17 +25,6 @@ namespace CSharpTravelKeeper.Controllers
             _userManager = userManager;
         }
 
-        // GET: Cities
-        public async Task<IActionResult> Index()
-        {
-            var user = await GetCurrentUserAsync();
-
-            var cities = _context.City.Where(c => c.ApplicationUserId == user.Id)
-                .Include(c => c.Transports)
-                .Include(c => c.Lodgings)
-                .Include(c => c.ActivityEvents);
-            return View(await cities.ToListAsync());
-        }
 
         // GET: Cities/Details/5
         public async Task<IActionResult> Details(int? id)

@@ -26,32 +26,6 @@ namespace CSharpTravelKeeper.Controllers
 
         }
 
-        // GET: ActivityEvents
-        public async Task<IActionResult> Index()
-        {
-            var activityEvents = _context.ActivityEvent.Include(a => a.ApplicationUser).Include(a => a.City);
-            return View(await activityEvents.ToListAsync());
-        }
-
-        // GET: ActivityEvents/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var activityEvent = await _context.ActivityEvent
-                .Include(a => a.ApplicationUser)
-                .Include(a => a.City)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (activityEvent == null)
-            {
-                return NotFound();
-            }
-
-            return View(activityEvent);
-        }
 
         // GET: ActivityEvents/Create
         public IActionResult Create()
@@ -169,7 +143,7 @@ namespace CSharpTravelKeeper.Controllers
             var activityEvent = await _context.ActivityEvent.FindAsync(id);
             _context.ActivityEvent.Remove(activityEvent);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Trips");
         }
 
         private bool ActivityEventExists(int id)

@@ -4,7 +4,10 @@
     ViewData["Title"] = "Details";
 }
 
-<h3>Trip Details</h3>
+    <h3>
+        @Html.DisplayFor(model => model.TripTitle)
+        Details
+    </h3>
 
 <div>
     <hr />
@@ -73,5 +76,5 @@
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
     <a asp-action="Delete" asp-route-id="@Model.Id">Delete</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Back to Trips</a>
 </div>

@@ -172,7 +172,7 @@ namespace CSharpTravelKeeper.Controllers
             var traveler = await _context.Traveler.FindAsync(id);
             _context.Traveler.Remove(traveler);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Trips");
         }
 
         private bool TravelerExists(int id)
