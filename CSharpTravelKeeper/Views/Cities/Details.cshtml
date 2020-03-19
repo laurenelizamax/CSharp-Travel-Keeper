@@ -4,15 +4,16 @@
     ViewData["Title"] = "Details";
 }
 
-<h3>City Details</h3>
+    <h3>
+        @Html.DisplayFor(model => model.CityName)
+        Details
+    </h3>
 
 <p>
-    <a asp-action="Create" asp-controller="ActivityEvents">Add Activites</a>
-</p>
-<p>
-    <a asp-action="Create" asp-controller="Lodgings">Add Lodging</a>
-</p>
-<p>
+    <a asp-action="Create" asp-controller="ActivityEvents">Add Activites</a> |
+
+    <a asp-action="Create" asp-controller="Lodgings">Add Lodging</a> |
+
     <a asp-action="Create" asp-controller="Transports">Add Transportation</a>
 </p>
 <div>
@@ -41,6 +42,7 @@
                 Website: @Html.DisplayFor(modelItem => lodging.LodgingWebsite) &nbsp;
                 Description: @Html.DisplayFor(modelItem => lodging.Description) &nbsp;
                 <a asp-action="Edit" asp-controller="Lodgings" asp-route-id="@lodging.Id">Edit</a>
+                <a asp-action="Delete" asp-controller="Lodgings" asp-route-id="@lodging.Id">Delete</a>
 
             </div>
             }
@@ -55,7 +57,8 @@
                 Name: @Html.DisplayFor(modelItem => activityEvent.ActivityName) &nbsp;
                 Website: @Html.DisplayFor(modelItem => activityEvent.ActivityWebsite) &nbsp;
                 Description: @Html.DisplayFor(modelItem => activityEvent.Description) &nbsp;
-                <a asp-action="Edit" asp-controller="ActivityEvents" asp-route-id="@activityEvent.Id">Edit</a> 
+                <a asp-action="Edit" asp-controller="ActivityEvents" asp-route-id="@activityEvent.Id">Edit</a>
+                <a asp-action="Delete" asp-controller="ActivityEvents" asp-route-id="@activityEvent.Id">Delete</a>
 
             </div>
             }
@@ -70,6 +73,7 @@
                 Name:  @Html.DisplayFor(modelItem => transport.TransportTitle) &nbsp;
                 Notes:  @Html.DisplayFor(modelItem => transport.Notes) &nbsp;
                 <a asp-action="Edit" asp-controller="Transports" asp-route-id="@transport.Id">Edit</a>
+                <a asp-action="Delete" asp-controller="Transports" asp-route-id="@transport.Id">Delete</a>
 
             </div>
             }

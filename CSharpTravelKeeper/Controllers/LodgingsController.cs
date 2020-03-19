@@ -25,32 +25,7 @@ namespace CSharpTravelKeeper.Controllers
             _userManager = userManager;
         }
 
-        // GET: Lodgings
-        public async Task<IActionResult> Index()
-        {
-            var applicationDbContext = _context.Lodging.Include(l => l.ApplicationUser).Include(l => l.City);
-            return View(await applicationDbContext.ToListAsync());
-        }
-
-        // GET: Lodgings/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var lodging = await _context.Lodging
-                .Include(l => l.ApplicationUser)
-                .Include(l => l.City)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (lodging == null)
-            {
-                return NotFound();
-            }
-
-            return View(lodging);
-        }
+       
 
         // GET: Lodgings/Create
         public IActionResult Create()
@@ -168,7 +143,7 @@ namespace CSharpTravelKeeper.Controllers
             var lodging = await _context.Lodging.FindAsync(id);
             _context.Lodging.Remove(lodging);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index","Trips");
         }
 
         private bool LodgingExists(int id)
