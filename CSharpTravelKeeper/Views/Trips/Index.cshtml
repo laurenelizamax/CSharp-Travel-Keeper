@@ -53,15 +53,6 @@
             <td>
                 @Html.DisplayFor(modelItem => item.EndDate)
             </td>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.IsFavorite)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Notes)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Photos)
-            </td>*@
             <td>
                 @foreach (var traveler in item.Travelers)
                 {
@@ -70,15 +61,20 @@
                 </div>
                 }
             </td>
-            <td>
-                @foreach (var city in item.Cities)
+          
+        <td>
+            @foreach (var city in item.Cities)
+            {
+                @if (city.IsActive == true)
                 {
-                <div>
-                    <a asp-action="Details" asp-controller="Cities" asp-route-id="@city.Id">@Html.DisplayFor(modelItem => city.CityName)</a> <br />
-                </div>
-                }
-            </td>
 
+                    <div>
+                        <a asp-action="Details" asp-controller="Cities" asp-route-id="@city.Id">@Html.DisplayFor(modelItem => city.CityName)</a> <br />
+                    </div>
+                }
+            }
+            </td>
+            
             <td>
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> 
             </td>

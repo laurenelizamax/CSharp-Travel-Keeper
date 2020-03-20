@@ -33,5 +33,6 @@ namespace CSharpTravelKeeper.Models
 
         public List<Traveler> Travelers { get; set; }
 
+        public bool IsActive { get; set; }
     }
 }
