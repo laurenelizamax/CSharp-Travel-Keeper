@@ -30,7 +30,8 @@ namespace CSharpTravelKeeper.Controllers
         {
             var user = await GetCurrentUserAsync();
 
-            var trips = _context.Trip.Where(t => t.ApplicationUserId == user.Id)
+
+            var trips = _context.Trip.Where(t => t.ApplicationUserId == user.Id && t.IsActive == true)
                 .Include(t => t.Cities)
                 .Include(t => t.Travelers);
             return View(await trips.ToListAsync());
@@ -47,7 +48,7 @@ namespace CSharpTravelKeeper.Controllers
             }
 
             var trip = await _context.Trip
-                .Where(t => t.ApplicationUserId == user.Id)
+                .Where(t => t.ApplicationUserId == user.Id && t.IsActive == true)
                 .Include(t => t.Travelers)
                 .Include(t => t.Cities)
                 .FirstOrDefaultAsync(m => m.Id == id);
@@ -75,6 +76,7 @@ namespace CSharpTravelKeeper.Controllers
         {
             var user = await GetCurrentUserAsync();
             trip.ApplicationUserId = user.Id;
+            trip.IsActive = true;
 
             if (ModelState.IsValid)
             {
@@ -144,36 +146,96 @@ namespace CSharpTravelKeeper.Controllers
             return View(trip);
         }
 
-        // GET: Trips/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+
+        // GET: Trips/Edit/5
+        public async Task<IActionResult> MakeInActive(int? id)
         {
+            var user = await GetCurrentUserAsync();
+
             if (id == null)
             {
                 return NotFound();
             }
 
-            var trip = await _context.Trip
-                .Include(t => t.ApplicationUser)
-                .Include(t => t.Cities)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var trip = await _context.Trip.FindAsync(id);
             if (trip == null)
             {
                 return NotFound();
             }
-
+            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", trip.ApplicationUserId);
             return View(trip);
         }
 
-        // POST: Trips/Delete/5
-        [HttpPost, ActionName("Delete")]
+        // POST: Trips/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> MakeInActive(int id, [Bind("Id,TripTitle,StartDate,EndDate,IsFavorite,Notes,Photos,ApplicationUserId")] Trip trip)
         {
-            var trip = await _context.Trip.FindAsync(id);
-            _context.Trip.Remove(trip);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            if (id != trip.Id)
+            {
+                return NotFound();
+            }
+
+            var user = await GetCurrentUserAsync();
+            trip.ApplicationUserId = user.Id;
+            trip.IsActive = false;
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(trip);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!TripExists(trip.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", trip.ApplicationUserId == user.Id);
+            return View(trip);
         }
+
+        //// GET: Trips/Delete/5
+        //public async Task<IActionResult> Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    var trip = await _context.Trip
+        //        .Include(t => t.ApplicationUser)
+        //        .Include(t => t.Cities)
+        //        .FirstOrDefaultAsync(m => m.Id == id);
+        //    if (trip == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return View(trip);
+        //}
+
+        //// POST: Trips/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> DeleteConfirmed(int id)
+        //{
+        //    var trip = await _context.Trip.FindAsync(id);
+        //    _context.Trip.Remove(trip);
+        //    await _context.SaveChangesAsync();
+        //    return RedirectToAction(nameof(Index));
+        //}
 
         private bool TripExists(int id)
         {

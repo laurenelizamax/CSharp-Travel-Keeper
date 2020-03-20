@@ -1,16 +1,18 @@
 ﻿@model CSharpTravelKeeper.Models.City
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "MakeInActive";
 }
 
-<h3>Add City</h3>
+<h1>MakeInActive</h1>
 
+<h4>City</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="MakeInActive">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <label asp-for="CityName" class="control-label"></label>
                 <input asp-for="CityName" class="form-control" />
@@ -22,11 +24,12 @@
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label>Trip</label>
+                <label asp-for="TripId" class="control-label"></label>
                 <select asp-for="TripId" class="form-control" asp-items="ViewBag.TripId"></select>
+                <span asp-validation-for="TripId" class="text-danger"></span>
             </div>
-            <div>
-                <input asp-for="IsActive" type="hidden" value="true" />
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
     </div>

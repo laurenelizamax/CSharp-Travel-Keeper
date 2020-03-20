@@ -37,7 +37,7 @@ namespace CSharpTravelKeeper.Controllers
             }
 
             var city = await _context.City
-                .Where(c => c.ApplicationUserId == user.Id)
+                .Where(c => c.ApplicationUserId == user.Id && c.IsActive == true)
                 .Include(c => c.Transports)
                 .Include(c => c.Lodgings)
                 .Include(c => c.ActivityEvents)
@@ -69,6 +69,7 @@ namespace CSharpTravelKeeper.Controllers
             var user = await GetCurrentUserAsync();
             city.TripId = tripId;
             city.ApplicationUserId = user.Id;
+            city.IsActive = true;
 
             if (ModelState.IsValid)
             {
@@ -141,36 +142,134 @@ namespace CSharpTravelKeeper.Controllers
             return View(city);
         }
 
-        // GET: Cities/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        // GET: Cities/Edit/5
+        public async Task<IActionResult> MakeInActive(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var city = await _context.City
-                .Include(c => c.ApplicationUser)
-                .Include(c => c.Trip)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var city = await _context.City.FindAsync(id);
             if (city == null)
             {
                 return NotFound();
             }
-
+            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", city.ApplicationUserId);
+            ViewData["TripId"] = new SelectList(_context.Trip, "Id", "TripTitle", city.TripId);
             return View(city);
         }
 
-        // POST: Cities/Delete/5
-        [HttpPost, ActionName("Delete")]
+        // POST: Cities/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> MakeInActive(int id, [Bind("Id,CityName,Description,ApplicationUserId,TripId")] City city)
         {
-            var city = await _context.City.FindAsync(id);
-            _context.City.Remove(city);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            if (id != city.Id)
+            {
+                return NotFound();
+            }
+
+            var user = await GetCurrentUserAsync();
+            city.ApplicationUserId = user.Id;
+            city.IsActive = false;
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(city);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!CityExists(city.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction("Index", "Trips");
+            }
+            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", city.ApplicationUserId == user.Id);
+            ViewData["TripId"] = new SelectList(_context.Trip, "Id", "TripTitle", city.TripId);
+            return View(city);
         }
+
+        //// GET: Cities/Delete/5
+        //public async Task<IActionResult> Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    var city = await _context.City
+        //        .Include(c => c.ApplicationUser)
+        //        .Include(c => c.Trip)
+        //        .FirstOrDefaultAsync(m => m.Id == id);
+        //    if (city == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return View(city);
+        //}
+
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> DeleteUpdate(int id, [Bind("Id,CityName,Description,ApplicationUserId,TripId")] City city)
+        //{
+        //    if (id != city.Id)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    var user = await GetCurrentUserAsync();
+        //    city.ApplicationUserId = user.Id;
+        //    city.IsActive = false;
+
+        //    if (ModelState.IsValid)
+        //    {
+        //        try
+        //        {
+        //            _context.Update(city);
+        //            await _context.SaveChangesAsync();
+        //        }
+        //        catch (DbUpdateConcurrencyException)
+        //        {
+        //            if (!CityExists(city.Id))
+        //            {
+        //                return NotFound();
+        //            }
+        //            else
+        //            {
+        //                throw;
+        //            }
+        //        }
+        //        return RedirectToAction("Index", "Trips");
+        //    }
+        //    ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", city.ApplicationUserId == user.Id);
+        //    ViewData["TripId"] = new SelectList(_context.Trip, "Id", "TripTitle", city.TripId);
+        //    return View(city);
+        //}
+
+        //// POST: Cities/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> DeleteConfirmed(int id)
+        //{
+        //    var city = await _context.City.FindAsync(id);
+        //    _context.City.Remove(city);
+        //    await _context.SaveChangesAsync();
+        //    return RedirectToAction(nameof(Index));
+        //}
 
         private bool CityExists(int id)
         {
