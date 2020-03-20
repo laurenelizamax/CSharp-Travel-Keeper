@@ -66,11 +66,15 @@
         <dd class="col-sm-10">
             @foreach (var city in Model.Cities)
             {
-            <span>
-                <a asp-action="Details" asp-controller="Cities" asp-route-id="@city.Id">@Html.DisplayFor(modelItem => city.CityName)</a> <br />
-            </span>
+                @if (city.IsActive == true)
+                {
+
+                    <span>
+                        <a asp-action="Details" asp-controller="Cities" asp-route-id="@city.Id">@Html.DisplayFor(modelItem => city.CityName)</a> <br />
+                    </span>
+                }
             }
-        </dd>
+            </dd>
     </dl>
 </div>
 <div>

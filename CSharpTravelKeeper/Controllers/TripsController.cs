@@ -206,37 +206,6 @@ namespace CSharpTravelKeeper.Controllers
             return View(trip);
         }
 
-        //// GET: Trips/Delete/5
-        //public async Task<IActionResult> Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var trip = await _context.Trip
-        //        .Include(t => t.ApplicationUser)
-        //        .Include(t => t.Cities)
-        //        .FirstOrDefaultAsync(m => m.Id == id);
-        //    if (trip == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return View(trip);
-        //}
-
-        //// POST: Trips/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> DeleteConfirmed(int id)
-        //{
-        //    var trip = await _context.Trip.FindAsync(id);
-        //    _context.Trip.Remove(trip);
-        //    await _context.SaveChangesAsync();
-        //    return RedirectToAction(nameof(Index));
-        //}
-
         private bool TripExists(int id)
         {
             return _context.Trip.Any(e => e.Id == id);
