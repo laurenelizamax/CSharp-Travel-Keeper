@@ -116,6 +116,9 @@ namespace CSharpTravelKeeper.Controllers
 
             var user = await GetCurrentUserAsync();
             city.ApplicationUserId = user.Id;
+            city.IsActive = true;
+
+
 
             if (ModelState.IsValid)
             {

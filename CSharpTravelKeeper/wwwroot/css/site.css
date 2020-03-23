@@ -62,7 +62,7 @@ html {
 
 body {
   /* Margin bottom by footer height */
-  margin-bottom: 60px;
+  margin-bottom: 200px;
 }
 .footer {
   position: absolute;
@@ -88,7 +88,14 @@ h1, h2, h3, h4, h5, h6, p, ol, ul, dl, dt, dd, button, input {
 }
 
 .tripIndex {
-    background-image: url("../images/paper1.jpg");
+    background-image: url("../images/paper2.jpg");
     max-height: 1000px;
     max-width: 1500px;
+}
+.addForm {
+    background-image: url("../images/addform.jpg");
+    height:524px;
+    width:960px;
+    padding-left: 350px;
+    padding-top:20px;
 }
