@@ -4,81 +4,49 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>My Trips</h1>
+
+<h1 class="text-light">My Trips</h1>
 
 <p>
-    <a asp-action="Create">Add Trip</a> |
-    <a asp-action="Create" asp-controller="Cities">Add Cities</a> |
-    <a asp-action="Create" asp-controller="Travelers">Add Travelers</a>
+    <a class="btn btn-outline-light" asp-action="Create">Add Trip</a>
+    <a class="btn btn-outline-light" asp-action="Create" asp-controller="Cities">Add City</a>
+    <a class="btn btn-outline-light" asp-action="Create" asp-controller="Travelers">Add Traveler</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.TripTitle)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StartDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EndDate)
-            </th>
-            @*<th>
-                @Html.DisplayNameFor(model => model.IsFavorite)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Notes)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Photos)
-            </th>*@
-            <th>
-                Travelers
-            </th>
-            <th>
-                Cities
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TripTitle)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EndDate)
-            </td>
-            <td>
-                @foreach (var traveler in item.Travelers)
-                {
-                <div>
-                    <a asp-action="Details" asp-controller="Travelers" asp-route-id="@traveler.Id">@Html.DisplayFor(modelItem => traveler.FellowTraveler)</a> <br />
-                </div>
-                }
-            </td>
-          
-        <td>
-            @foreach (var city in item.Cities)
-            {
-                @if (city.IsActive == true)
-                {
 
-                    <div>
-                        <a asp-action="Details" asp-controller="Cities" asp-route-id="@city.Id">@Html.DisplayFor(modelItem => city.CityName)</a> <br />
+<body class="tripIndex">
+    <br />
+    <br />
+    <div class="container">
+        <div class="row justify-content-between">
+
+            @foreach (var item in Model)
+            {
+                <div class="col-3">
+                    <div class="card indexCard">
+                        <div class="card-body">
+                            <h5 class="card-title">
+
+                                @Html.DisplayFor(modelItem => item.TripTitle)
+
+                            </h5>
+                            <p class="card-text">
+                                @Html.DisplayNameFor(modelItem => item.StartDate) :
+                                @Html.DisplayFor(modelItem => item.StartDate)
+                            </p>
+                            <p class="card-text">
+                                @Html.DisplayNameFor(modelItem => item.EndDate) :
+                                @Html.DisplayFor(modelItem => item.EndDate)
+                            </p>
+
+
+                            <p>
+                                <a class="text-dark" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                            </p>
+
+                        </div>
                     </div>
-                }
+                </div>
             }
-            </td>
-            
-            <td>
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> 
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+        </div>
+    </div>
+</body>
