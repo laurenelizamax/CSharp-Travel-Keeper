@@ -4,41 +4,53 @@
     ViewData["Title"] = "Create";
 }
 
-<h3>Add A Traveler</h3>
 
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="FellowTraveler" class="control-label"></label>
-                <input asp-for="FellowTraveler" class="form-control" />
-                <span asp-validation-for="FellowTraveler" class="text-danger"></span>
+<br />
+<br />
+<div class="container">
+    <div class="col-5">
+        <div class="card addTraveler">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-5">
+                        <h3>A d d   &nbsp; T r a v e l e r</h3>
+                        <form asp-action="Create">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="form-group">
+                                <label asp-for="FellowTraveler" class="control-label"></label>
+                                <input asp-for="FellowTraveler" class="form-control" />
+                                <span asp-validation-for="FellowTraveler" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Email" class="control-label"></label>
+                                <input asp-for="Email" class="form-control" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="TravelerWebsite" class="control-label"></label>
+                                <input asp-for="TravelerWebsite" class="form-control" />
+                                <span asp-validation-for="TravelerWebsite" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label>Trip</label>
+                                <select asp-for="TripId" class="form-control" asp-items="ViewBag.TripId"></select>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Create" class="btn btn-outline-dark" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+
             </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TravelerWebsite" class="control-label"></label>
-                <input asp-for="TravelerWebsite" class="form-control" />
-                <span asp-validation-for="TravelerWebsite" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label>Trip</label>
-                <select asp-for="TripId" class ="form-control" asp-items="ViewBag.TripId"></select>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index" asp-controller="Trips">Back to Trips</a>
+    <br />
+    <br />
+    <div>
+        <a class="btn btn-outline-dark" asp-action="Index" asp-controller="Trips">Back to Trips</a>
+    </div>
 </div>
 
 @section Scripts {

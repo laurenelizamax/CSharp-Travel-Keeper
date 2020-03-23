@@ -106,3 +106,10 @@ h1, h2, h3, h4, h5, h6, p, ol, ul, dl, dt, dd, button, input {
     padding-left: 350px;
     padding-top: 40px;
 }
+.addTraveler {
+    background-image: url("../images/addtraveler.jpg");
+    height: 524px;
+    width: 960px;
+    padding-left: 250px;
+    padding-top: 20px;
+}
