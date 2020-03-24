@@ -37,13 +37,33 @@
                                 @Html.DisplayNameFor(modelItem => item.EndDate) :
                                 @Html.DisplayFor(modelItem => item.EndDate)
                             </p>
-
-
+                            <p>Travelers: </p>
                             <p>
-                                <a class="text-dark" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                                @foreach (var traveler in item.Travelers)
+                                {
+                                    <div>
+                                        <a class="text-dark"  asp-action="Details" asp-controller="Travelers" asp-route-id="@traveler.Id">@Html.DisplayFor(modelItem => traveler.FellowTraveler)</a> <br />
+                                    </div>
+                                }
                             </p>
+                           <p>Cities: </p>
+                                <p>
+                                    @foreach (var city in item.Cities)
+                                    {
+                                        @if (city.IsActive == true)
+                                        {
+                                            <div>
+                                                <a class="text-dark" asp-action="Details" asp-controller="Cities" asp-route-id="@city.Id">@Html.DisplayFor(modelItem => city.CityName)</a> <br />
+                                            </div>
+                                        }
+                                    }
+                                </p>
 
-                        </div>
+                                <p>
+                                    <a class="text-dark" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                                </p>
+
+                            </div>
                     </div>
                 </div>
             }
