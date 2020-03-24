@@ -163,3 +163,11 @@ h1, h2, h3, h4, h5, h6, p, ol, ul, dl, dt, dd, button, input, a {
     padding-top: 10px;
     color: white;
 }
+.addTransport {
+    background-image: url("../images/addtransport.jpg");
+    height: 925px;
+    width: 870px;
+    padding-left: 50px;
+    padding-top: 10px;
+    color: white;
+}
