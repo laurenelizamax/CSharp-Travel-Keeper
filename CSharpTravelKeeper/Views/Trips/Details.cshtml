@@ -4,10 +4,6 @@
     ViewData["Title"] = "Details";
 }
 
-@*<h3>
-    @Html.DisplayFor(model => model.TripTitle)
-    Details
-</h3>*@
 
 <p>
     <a class="btn btn-outline-dark" asp-action="Create" asp-controller="Cities">Add City</a>
@@ -22,14 +18,7 @@
         </h3>
         <div class="row">
             <hr />
-            <dl class="row">
-                @*<dt class="col-sm-2">
-                    @Html.DisplayFor(model => model.TripTitle)
-                    Details
-                </dt>*@
-                @*<dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.TripTitle)
-                </dd>*@
+            <dl class="row">              
                 <dt class="col-sm-2">
                     @Html.DisplayNameFor(model => model.StartDate)
                 </dt>

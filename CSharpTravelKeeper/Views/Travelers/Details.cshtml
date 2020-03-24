@@ -4,42 +4,46 @@
     ViewData["Title"] = "Details";
 }
 
-    <h3>
-        @Html.DisplayFor(model => model.FellowTraveler)
-        Details
-    </h3>
-
-<div>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FellowTraveler)
-        </dt>
-        <dd class = "col-sm-10">
+<div class="card travelerDetails">
+    <div class="card-body">
+        <h3>
             @Html.DisplayFor(model => model.FellowTraveler)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TravelerWebsite)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TravelerWebsite)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Trip)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Trip.TripTitle)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Delete" asp-route-id="@Model.Id">Delete</a> |
-    <a asp-action="Details" asp-controller="Trips" asp-route-id="@Model.TripId">Back to Trip Details</a>
+            Details
+        </h3>
+        <div class="row">
+            <hr />
+            <dl class="row">
+                @*<dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.FellowTraveler)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.FellowTraveler)
+                    </dd>*@
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Email)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Email)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.TravelerWebsite)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.TravelerWebsite)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Trip)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Trip.TripTitle)
+                </dd>
+            </dl>
+        </div>
+
+        <div>
+            <a class="text-dark" asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+            <a class="text-dark" asp-action="Delete" asp-route-id="@Model.Id">Delete</a> |
+            <a class="text-dark" asp-action="Details" asp-controller="Trips" asp-route-id="@Model.TripId">Back to Trip Details</a>
+        </div>
+    </div>
 </div>
