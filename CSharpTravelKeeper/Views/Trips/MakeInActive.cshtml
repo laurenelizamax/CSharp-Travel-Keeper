@@ -17,9 +17,34 @@
                 <label asp-for="TripTitle" class="control-label"></label>
                 <input asp-for="TripTitle" class="form-control" />
                 <span asp-validation-for="TripTitle" class="text-danger"></span>
-            </div>            
+            </div>
             <div class="form-group">
-                <input type="submit" value="Delete" class="btn btn-primary" />
+                <label asp-for="StartDate" class="control-label"></label>
+                <input asp-for="StartDate" class="form-control" />
+                <span asp-validation-for="StartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EndDate" class="control-label"></label>
+                <input asp-for="EndDate" class="form-control" />
+                <span asp-validation-for="EndDate" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsFavorite" /> @Html.DisplayNameFor(model => model.IsFavorite)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="Notes" class="control-label"></label>
+                <input asp-for="Notes" class="form-control" />
+                <span asp-validation-for="Notes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Photos" class="control-label"></label>
+                <input asp-for="Photos" class="form-control" />
+                <span asp-validation-for="Photos" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
     </div>
