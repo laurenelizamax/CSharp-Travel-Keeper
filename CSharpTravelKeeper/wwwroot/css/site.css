@@ -76,7 +76,7 @@ body {
     margin-bottom: 40px;
 }
 
-h1, h2, h3, h4, h5, h6, p, ol, ul, dl, dt, dd, button, input {
+h1, h2, h3, h4, h5, h6, p, ol, ul, dl, dt, dd, button, input, a {
     font-family: 'Dosis', sans-serif;
 }
 
@@ -87,11 +87,6 @@ h1, h2, h3, h4, h5, h6, p, ol, ul, dl, dt, dd, button, input {
     background-color: #E1D9B5;
 }
 
-.tripIndex {
-    background-image: url("../images/paper2.jpg");
-    max-height: 1000px;
-    max-width: 1500px;
-}
 .addForm {
     background-image: url("../images/addform.jpg");
     height:524px;
@@ -112,4 +107,11 @@ h1, h2, h3, h4, h5, h6, p, ol, ul, dl, dt, dd, button, input {
     width: 960px;
     padding-left: 250px;
     padding-top: 20px;
+}
+.tripIndex {
+    background-image: url("../images/paper2.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    max-height: 1000px;
+    max-width: 1500px;
 }
