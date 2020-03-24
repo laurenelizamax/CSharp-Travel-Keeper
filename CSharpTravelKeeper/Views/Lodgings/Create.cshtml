@@ -4,44 +4,53 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
 
-<h4>Lodging</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="LodgingName" class="control-label"></label>
-                <input asp-for="LodgingName" class="form-control" />
-                <span asp-validation-for="LodgingName" class="text-danger"></span>
+<br />
+<br />
+<div class="container">
+    <div class="col-5">
+        <div class="card addLodging">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-5">
+                        <h3>A d d &nbsp;  L o d g i n g</h3>
+                        <br />
+                        <br />
+                        <form asp-action="Create">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="form-group">
+                                <label asp-for="LodgingName" class="control-label"></label>
+                                <input asp-for="LodgingName" class="form-control" />
+                                <span asp-validation-for="LodgingName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Description" class="control-label"></label>
+                                <input asp-for="Description" class="form-control" />
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="LodgingWebsite" class="control-label"></label>
+                                <input asp-for="LodgingWebsite" class="form-control" />
+                                <span asp-validation-for="LodgingWebsite" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label>City</label>
+                                <select asp-for="CityId" class="form-control" asp-items="ViewBag.CityId"></select>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Create" class="btn btn-outline-light" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LodgingWebsite" class="control-label"></label>
-                <input asp-for="LodgingWebsite" class="form-control" />
-                <span asp-validation-for="LodgingWebsite" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label>City</label>
-                <select asp-for="CityId" class ="form-control" asp-items="ViewBag.CityId"></select>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
-</div>
+                <div>
+                    <a class="btn btn-outline-dark" asp-action="Index" asp-controller="Trips">Back to Trip</a>
+                </div>
 
-<div>
-    <a asp-action="Index" asp-controller="Trips">Back to Trip</a>
-</div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+                @section Scripts {
+                    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+                }

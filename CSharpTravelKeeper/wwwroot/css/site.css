@@ -155,3 +155,11 @@ h1, h2, h3, h4, h5, h6, p, ol, ul, dl, dt, dd, button, input, a {
     padding-top: 20px;
     color: white;
 }
+.addLodging {
+    background-image: url("../images/addlodging.jpg");
+    height: 825px;
+    width: 860px;
+    padding-left: 50px;
+    padding-top: 10px;
+    color: white;
+}
