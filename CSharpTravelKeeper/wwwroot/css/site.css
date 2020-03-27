@@ -171,3 +171,36 @@ h1, h2, h3, h4, h5, h6, p, ol, ul, dl, dt, dd, button, input, a {
     padding-top: 10px;
     color: white;
 }
+
+.editCityForm {
+    background-color: white;
+    height: 500px;
+    width: 500px;
+    padding-top: 10px;
+    border-radius: 25px;
+    border: 1px solid black;
+    margin-left: -50px;
+    margin-right:10px;
+   
+}
+.editTripForm {
+    background-color: white;
+    height: 700px;
+    width: 500px;
+    padding-top: 10px;
+    border-radius: 25px;
+    border: 1px solid black;
+    margin-left: -50px;
+    margin-right: 10px;
+}
+.editImage {
+    float: right;
+    max-height: 640px;
+    max-width: 620px;
+    border-radius: 25px;
+    margin-top:20px;
+}
+/*.backList {
+    float: right;
+    margin-top: 20px;
+}*/
