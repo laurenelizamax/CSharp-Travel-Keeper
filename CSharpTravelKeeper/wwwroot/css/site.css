@@ -95,11 +95,14 @@ h1, h2, h3, h4, h5, h6, p, ol, ul, dl, dt, dd, button, input, a {
     padding-top:20px;
 }
 .addTrip {
-    background-image: url("../images/addtrip.jpg");
-    height: 800px;
-    width: 960px;
-    padding-left: 350px;
-    padding-top: 40px;
+    background-color: white;
+    height: 700px;
+    width: 500px;
+    padding-top: 10px;
+    border-radius: 25px;
+    border: 1px solid black;
+    margin-left: -50px;
+    margin-right: 10px;
 }
 .addTraveler {
     background-image: url("../images/addtraveler.jpg");
@@ -198,7 +201,7 @@ h1, h2, h3, h4, h5, h6, p, ol, ul, dl, dt, dd, button, input, a {
     max-height: 640px;
     max-width: 620px;
     border-radius: 25px;
-    margin-top:20px;
+    margin-top:40px;
 }
 /*.backList {
     float: right;
