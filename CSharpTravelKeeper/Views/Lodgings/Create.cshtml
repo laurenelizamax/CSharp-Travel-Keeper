@@ -5,6 +5,9 @@
 }
 
 
+<div>
+    <img class="editImage" src="~/images/addlodging.jpg" alt="beach">
+</div>
 <br />
 <br />
 <div class="container">
@@ -12,8 +15,8 @@
         <div class="card addLodging">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-5">
-                        <h3>A d d &nbsp;  L o d g i n g</h3>
+                    <div class="col-md-7">
+                        <h3>A d d &nbsp; L o d g i n g</h3>
                         <br />
                         <br />
                         <form asp-action="Create">
@@ -43,14 +46,14 @@
                         </form>
                     </div>
                 </div>
-                </div>
             </div>
         </div>
     </div>
-                <div>
-                    <a class="btn btn-outline-dark" asp-action="Index" asp-controller="Trips">Back to Trip</a>
-                </div>
+</div>
+<div>
+    <a class="btn btn-outline-dark" asp-action="Index" asp-controller="Trips">Back to Trip</a>
+</div>
 
-                @section Scripts {
-                    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-                }
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

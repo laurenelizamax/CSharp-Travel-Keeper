@@ -87,12 +87,15 @@ h1, h2, h3, h4, h5, h6, p, ol, ul, dl, dt, dd, button, input, a {
     background-color: #E1D9B5;
 }
 
-.addForm {
-    background-image: url("../images/addform.jpg");
-    height:524px;
-    width:960px;
-    padding-left: 350px;
-    padding-top:20px;
+.addCity {
+    background-color: white;
+    height: 700px;
+    width: 500px;
+    padding-top: 10px;
+    border-radius: 25px;
+    border: 1px solid black;
+    margin-left: -50px;
+    margin-right: 10px;
 }
 .addTrip {
     background-color: white;
@@ -105,11 +108,14 @@ h1, h2, h3, h4, h5, h6, p, ol, ul, dl, dt, dd, button, input, a {
     margin-right: 10px;
 }
 .addTraveler {
-    background-image: url("../images/addtraveler.jpg");
-    height: 524px;
-    width: 960px;
-    padding-left: 250px;
-    padding-top: 20px;
+    background-color: white;
+    height: 600px;
+    width: 655px;
+    padding-top: 10px;
+    border-radius: 25px;
+    border: 1px solid black;
+    margin-left: -50px;
+    margin-right: 10px;
 }
 .tripIndex {
     background-image: url("../images/paper2.jpg");
@@ -151,20 +157,24 @@ h1, h2, h3, h4, h5, h6, p, ol, ul, dl, dt, dd, button, input, a {
     background-repeat: no-repeat;
 }
 .addActivity {
-    background-image: url("../images/addevent.jpg");
-    height: 725px;
-    width: 760px;
-    padding-left: 50px;
-    padding-top: 20px;
-    color: white;
+    background-color: white;
+    height: 510px;
+    width: 535px;
+    padding-top: 10px;
+    border-radius: 25px;
+    border: 1px solid black;
+    margin-left: -50px;
+    margin-right: 30px;
 }
 .addLodging {
-    background-image: url("../images/addlodging.jpg");
-    height: 825px;
-    width: 860px;
-    padding-left: 50px;
+    background-color: white;
+    height: 510px;
+    width: 480px;
     padding-top: 10px;
-    color: white;
+    border-radius: 25px;
+    border: 1px solid black;
+    margin-left: -50px;
+    margin-right: 30px;
 }
 .addTransport {
     background-image: url("../images/addtransport.jpg");
@@ -199,7 +209,7 @@ h1, h2, h3, h4, h5, h6, p, ol, ul, dl, dt, dd, button, input, a {
 .editImage {
     float: right;
     max-height: 640px;
-    max-width: 620px;
+    max-width: 600px;
     border-radius: 25px;
     margin-top:40px;
 }
