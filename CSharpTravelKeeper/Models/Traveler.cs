@@ -13,11 +13,11 @@ namespace CSharpTravelKeeper.Models
         [Display(Name = "Traveler")]
         public string FellowTraveler { get; set; }
 
-        [Display(Name = "Traveler's Email")]
+        [Display(Name = "Email")]
         public string Email { get; set; }
 
 
-        [Display(Name = "Traveler's Website")]
+        [Display(Name = "Website")]
         public string TravelerWebsite { get; set; }
 
         public string ApplicationUserId { get; set; }

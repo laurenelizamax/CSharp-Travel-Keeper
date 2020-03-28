@@ -10,79 +10,94 @@
     <a class="btn btn-outline-dark" asp-action="Create" asp-controller="Travelers">Add Traveler</a>
 
 </p>
-<div class="card tripDetails">
-    <div class="card-body">
-        <h3>
-            @Html.DisplayFor(model => model.TripTitle)
-            Details
-        </h3>
-        <div class="row">
-            <hr />
-            <dl class="row">              
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.StartDate)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.StartDate)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.EndDate)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.EndDate)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.IsFavorite)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.IsFavorite)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.Notes)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.Notes)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.Photos)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.Photos)
-                </dd>
-                <dt class="col-sm-2">
-                    Travelers
-                </dt>
-                <dd class="col-sm-10">
-                    @foreach (var traveler in Model.Travelers)
-                    {
-                        <span>
-                            <a class="btn btn-outline-dark" asp-action="Details" asp-controller="Travelers" asp-route-id="@traveler.Id">@Html.DisplayFor(modelItem => traveler.FellowTraveler)</a> <br />
 
-                        </span>
-                    }
-                </dd>
-                <dt class="col-sm-2">
-                    Cities
-                </dt>
-                <dd class="col-sm-10">
-                    @foreach (var city in Model.Cities)
-                    {
-                        @if (city.IsActive == true)
-                        {
 
-                            <span>
-                                <a class="btn btn-outline-dark" asp-action="Details" asp-controller="Cities" asp-route-id="@city.Id">@Html.DisplayFor(modelItem => city.CityName)</a> <br />
-                            </span>
-                        }
-                    }
-                </dd>
-            </dl>
+
+<div>
+    <img class="editImage" src="~/images/tripdetails.jpg" alt="beach">
+</div>
+<br />
+<br />
+<div class="container">
+    <div class="col-5">
+        <div class="card tripDetails">
+            <div class="card-body">
+                <div class="row">
+                    <h3>
+                        @Html.DisplayFor(model => model.TripTitle)
+                        Details
+                    </h3>
+                    <div class="row">
+                        <hr />
+                        <dl class="row">
+                            <dt class="col-sm-4">
+                                @Html.DisplayNameFor(model => model.StartDate)
+                            </dt>
+                            <dd class="col-sm-10">
+                                @Html.DisplayFor(model => model.StartDate)
+                            </dd>
+                            <dt class="col-sm-4">
+                                @Html.DisplayNameFor(model => model.EndDate)
+                            </dt>
+                            <dd class="col-sm-10">
+                                @Html.DisplayFor(model => model.EndDate)
+                            </dd>
+                            <dt class="col-sm-4">
+                                @Html.DisplayNameFor(model => model.IsFavorite)
+                            </dt>
+                            <dd class="col-sm-10">
+                                @Html.DisplayFor(model => model.IsFavorite)
+                            </dd>
+                            <dt class="col-sm-4">
+                                @Html.DisplayNameFor(model => model.Notes)
+                            </dt>
+                            <dd class="col-sm-10">
+                                @Html.DisplayFor(model => model.Notes)
+                            </dd>
+                            <dt class="col-sm-4">
+                                @Html.DisplayNameFor(model => model.Photos)
+                            </dt>
+                            <dd class="col-sm-10">
+                                @Html.DisplayFor(model => model.Photos)
+                            </dd>
+                            <dt class="col-sm-4">
+                                Travelers
+                            </dt>
+                            <dd class="col-sm-10">
+                                @foreach (var traveler in Model.Travelers)
+                                {
+                                    <span>
+                                        <a class="btn btn-outline-dark" asp-action="Details" asp-controller="Travelers" asp-route-id="@traveler.Id">@Html.DisplayFor(modelItem => traveler.FellowTraveler)</a> <br />
+
+                                    </span>
+                                }
+                            </dd>
+                            <dt class="col-sm-4">
+                                Cities
+                            </dt>
+                            <dd class="col-sm-10">
+                                @foreach (var city in Model.Cities)
+                                {
+                                    @if (city.IsActive == true)
+                                    {
+
+                                        <span>
+                                            <a class="btn btn-outline-dark" asp-action="Details" asp-controller="Cities" asp-route-id="@city.Id">@Html.DisplayFor(modelItem => city.CityName)</a> <br />
+                                        </span>
+                                    }
+                                }
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+
+
+                <div>
+                    <a class="text-dark" asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+                    <a class="text-dark" asp-action="MakeInActive" asp-route-id="@Model.Id">Delete</a> |
+                    <a class="text-dark" asp-action="Index">Back to Trips</a>
+                </div>
+            </div>
         </div>
     </div>
-
-        <div>
-            <a class="text-dark" asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-            <a class="text-dark" asp-action="MakeInActive" asp-route-id="@Model.Id">Delete</a> |
-            <a class="text-dark" asp-action="Index">Back to Trips</a>
-        </div>
 </div>

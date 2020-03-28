@@ -15,13 +15,14 @@ namespace CSharpTravelKeeper.Models
 
 
         [Required]
-        [Display(Name = "Start Date")]
+        [Display(Name = "Start")]
         public string StartDate { get; set; }
 
         [Required]
-        [Display(Name = "End Date")]
+        [Display(Name = "End")]
         public string EndDate { get; set; }
 
+        [Display(Name = "Favorite")]
         public bool IsFavorite { get; set; }
         public string Notes { get; set; }
 
