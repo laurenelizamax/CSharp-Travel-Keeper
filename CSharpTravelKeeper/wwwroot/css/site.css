@@ -145,7 +145,7 @@ h1, h2, h3, h4, h5, h6, p, ol, ul, dl, dt, dd, button, input, a {
     background-color: white;
     height: 400px;
     width: 500px;
-    padding-top: 10px;
+    padding-top: 20px;
     padding-left: 20px;
     border-radius: 25px;
     border: 1px solid black;
@@ -266,6 +266,26 @@ h1, h2, h3, h4, h5, h6, p, ol, ul, dl, dt, dd, button, input, a {
     background-color: white;
     height: 570px;
     width: 560px;
+    padding-top: 10px;
+    border-radius: 25px;
+    border: 1px solid black;
+    margin-left: -50px;
+    margin-right: 10px;
+}
+.deleteCityForm {
+    background-color: white;
+    height: 500px;
+    width: 500px;
+    padding-top: 10px;
+    border-radius: 25px;
+    border: 1px solid black;
+    margin-left: -50px;
+    margin-right: 10px;
+}
+.deleteLodgingForm {
+    background-color: white;
+    height: 370px;
+    width: 550px;
     padding-top: 10px;
     border-radius: 25px;
     border: 1px solid black;
