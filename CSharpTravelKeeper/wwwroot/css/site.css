@@ -131,30 +131,36 @@ h1, h2, h3, h4, h5, h6, p, ol, ul, dl, dt, dd, button, input, a {
     margin-bottom: -20px;
 }
 .tripDetails {
-    background-image: url("../images/tripdets.jpg");
-    height: 584px;
-    width: 820px;
-    padding-bottom:20px;
-    padding-left: 10px;
-    padding-top: -20px;
+    background-color: white;
+    height: 600px;
+    width: 500px;
+    padding-top: 10px;
+    padding-left: 20px;
+    border-radius: 25px;
+    border: 1px solid black;
+    margin-left: -50px;
+    margin-right: 10px;
 }
 .travelerDetails {
-    background-image: url("../images/friendsdetails.jpg");
-    height: 484px;
-    width: 620px;
-    padding-bottom: 20px;
-    padding-left: 10px;
-    padding-top: -20px;
-    background-repeat: no-repeat;
+    background-color: white;
+    height: 400px;
+    width: 500px;
+    padding-top: 10px;
+    padding-left: 20px;
+    border-radius: 25px;
+    border: 1px solid black;
+    margin-left: -50px;
+    margin-right: 10px;
 }
 .cityDetails {
-    background-image: url("../images/citydetails.jpg");
-    height: 600px;
-    width: 860px;
-    padding-bottom: 20px;
-    padding-left: 10px;
-    padding-top: -20px;
-    background-repeat: no-repeat;
+    background-color: white;
+    height: 500px;
+    width: 500px;
+    padding-top: 10px;
+    border-radius: 25px;
+    border: 1px solid black;
+    margin-left: -50px;
+    margin-right: 10px;
 }
 .addActivity {
     background-color: white;
@@ -177,12 +183,14 @@ h1, h2, h3, h4, h5, h6, p, ol, ul, dl, dt, dd, button, input, a {
     margin-right: 30px;
 }
 .addTransport {
-    background-image: url("../images/addtransport.jpg");
-    height: 925px;
-    width: 870px;
-    padding-left: 50px;
+    background-color: white;
+    height: 510px;
+    width: 510px;
     padding-top: 10px;
-    color: white;
+    border-radius: 25px;
+    border: 1px solid black;
+    margin-left: -50px;
+    margin-right: 30px;
 }
 
 .editCityForm {
@@ -217,3 +225,10 @@ h1, h2, h3, h4, h5, h6, p, ol, ul, dl, dt, dd, button, input, a {
     float: right;
     margin-top: 20px;
 }*/
+.detailsImage {
+    float: right;
+    max-height: 640px;
+    max-width: 500px;
+    border-radius: 25px;
+    margin-top: 40px;
+}

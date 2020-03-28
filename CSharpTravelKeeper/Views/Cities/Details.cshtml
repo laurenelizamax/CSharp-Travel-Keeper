@@ -13,79 +13,87 @@
 
     <a class="btn btn-outline-dark" asp-action="Create" asp-controller="Transports">Add Transportation</a>
 </p>
-<div class="card cityDetails">
-    <div class="card-body">
-        <h3>
-            @Html.DisplayFor(model => model.CityName)
-            Details
-        </h3>
-        <br />
-        
-        <dl class="row">
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Description)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Description)
-            </dd>
-            <dt class="col-sm-2">
-                Lodging
-            </dt>
-            <dd class="col-sm-10">
-                @foreach (var lodging in Model.Lodgings)
-                {
-                    <div>
-                        Name: @Html.DisplayFor(modelItem => lodging.LodgingName) &nbsp;
-                        Website: @Html.DisplayFor(modelItem => lodging.LodgingWebsite) &nbsp;
-                        Description: @Html.DisplayFor(modelItem => lodging.Description) &nbsp;
-                        <a class="text-dark" asp-action="Edit" asp-controller="Lodgings" asp-route-id="@lodging.Id">Edit</a>
-                        <a class="text-dark" asp-action="Delete" asp-controller="Lodgings" asp-route-id="@lodging.Id">Delete</a>
 
-                    </div>
-                }
-            </dd>
-            <dt class="col-sm-2">
-                Activities
-            </dt>
-            <dd class="col-sm-10">
-                @foreach (var activityEvent in Model.ActivityEvents)
-                {
-                    <div>
-                        Name: @Html.DisplayFor(modelItem => activityEvent.ActivityName) &nbsp;
-                        Website: @Html.DisplayFor(modelItem => activityEvent.ActivityWebsite) &nbsp;
-                        Description: @Html.DisplayFor(modelItem => activityEvent.Description) &nbsp;
-                        <a class="text-dark" asp-action="Edit" asp-controller="ActivityEvents" asp-route-id="@activityEvent.Id">Edit</a>
-                        <a class="text-dark" asp-action="Delete" asp-controller="ActivityEvents" asp-route-id="@activityEvent.Id">Delete</a>
 
-                    </div>
-                }
-            </dd>
-            <dt class="col-sm-2">
-                Transportation
-            </dt>
-            <dd class="col-sm-10">
-                @foreach (var transport in Model.Transports)
-                {
-                    <div>
-                        Name:  @Html.DisplayFor(modelItem => transport.TransportTitle) &nbsp;
-                        Notes:  @Html.DisplayFor(modelItem => transport.Notes) &nbsp;
-                        <a class="text-dark" asp-action="Edit" asp-controller="Transports" asp-route-id="@transport.Id">Edit</a>
-                        <a class="text-dark" asp-action="Delete" asp-controller="Transports" asp-route-id="@transport.Id">Delete</a>
+<div>
+    <img class="editImage" src="~/images/citydetails.jpg" alt="beach">
+</div>
+<br />
+<br />
+<div class="container">
+    <div class="col-5">
+        <div class="card cityDetails">
+            <div class="card-body">
+                <div class="row">
+                        <h3>
+                            @Html.DisplayFor(model => model.CityName) &nbsp;
+                            Details
+                        </h3>
+                        <br />
+                        <dl class="row">
+                            <dt class="col-sm-4">
+                                @Html.DisplayNameFor(model => model.Description)
+                            </dt>
+                            <dd class="col-sm-10">
+                                @Html.DisplayFor(model => model.Description)
+                            </dd>
+                            <dt class="col-sm-4">
+                                Lodging
+                            </dt>
+                            <dd class="col-sm-10">
+                                @foreach (var lodging in Model.Lodgings)
+                                {
+                                    <div>
+                                        Name: @Html.DisplayFor(modelItem => lodging.LodgingName) &nbsp;
+                                        Website: @Html.DisplayFor(modelItem => lodging.LodgingWebsite) &nbsp;
+                                        Description: @Html.DisplayFor(modelItem => lodging.Description) &nbsp;
+                                        <a class="text-dark" asp-action="Edit" asp-controller="Lodgings" asp-route-id="@lodging.Id">Edit</a>
+                                        <a class="text-dark" asp-action="Delete" asp-controller="Lodgings" asp-route-id="@lodging.Id">Delete</a>
 
+                                    </div>
+                                }
+                            </dd>
+                            <dt class="col-sm-4">
+                                Activities
+                            </dt>
+                            <dd class="col-sm-10">
+                                @foreach (var activityEvent in Model.ActivityEvents)
+                                {
+                                    <div>
+                                        Name: @Html.DisplayFor(modelItem => activityEvent.ActivityName) &nbsp;
+                                        Website: @Html.DisplayFor(modelItem => activityEvent.ActivityWebsite) &nbsp;
+                                        Description: @Html.DisplayFor(modelItem => activityEvent.Description) &nbsp;
+                                        <a class="text-dark" asp-action="Edit" asp-controller="ActivityEvents" asp-route-id="@activityEvent.Id">Edit</a>
+                                        <a class="text-dark" asp-action="Delete" asp-controller="ActivityEvents" asp-route-id="@activityEvent.Id">Delete</a>
+
+                                    </div>
+                                }
+                            </dd>
+                            <dt class="col-sm-4">
+                                Transportation
+                            </dt>
+                            <dd class="col-sm-10">
+                                @foreach (var transport in Model.Transports)
+                                {
+                                    <div>
+                                        Name:  @Html.DisplayFor(modelItem => transport.TransportTitle) &nbsp;
+                                        Notes:  @Html.DisplayFor(modelItem => transport.Notes) &nbsp;
+                                        <a class="text-dark" asp-action="Edit" asp-controller="Transports" asp-route-id="@transport.Id">Edit</a>
+                                        <a class="text-dark" asp-action="Delete" asp-controller="Transports" asp-route-id="@transport.Id">Delete</a>
+
+                                    </div>
+                                }
+                            </dd>
+                        </dl>
+                        <br />
+                        <br />
+                        <div>
+                            <a class="text-dark" asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+                            <a class="text-dark" asp-action="MakeInActive" asp-route-id="@Model.Id">Delete</a> |
+                            <a class="text-dark" asp-action="Details" asp-controller="Trips" asp-route-id="@Model.TripId">Back to Trip Details</a>
+                        </div>
                     </div>
-                }
-            </dd>
-        </dl>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <div>
-            <a class="text-dark" asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-            <a class="text-dark" asp-action="MakeInActive" asp-route-id="@Model.Id">Delete</a> |
-            <a class="text-dark" asp-action="Details" asp-controller="Trips" asp-route-id="@Model.TripId">Back to Trip Details</a>
-        </div>
-    </div>
-    </div>
+                </div>
+                </div>
+</div>
+</div>
