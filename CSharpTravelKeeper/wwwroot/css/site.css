@@ -110,7 +110,7 @@ h1, h2, h3, h4, h5, h6, p, ol, ul, dl, dt, dd, button, input, a {
 .addTraveler {
     background-color: white;
     height: 600px;
-    width: 655px;
+    width: 495px;
     padding-top: 10px;
     border-radius: 25px;
     border: 1px solid black;
@@ -217,7 +217,7 @@ h1, h2, h3, h4, h5, h6, p, ol, ul, dl, dt, dd, button, input, a {
 .editImage {
     float: right;
     max-height: 640px;
-    max-width: 600px;
+    max-width: 550px;
     border-radius: 25px;
     margin-top:40px;
 }
@@ -231,4 +231,44 @@ h1, h2, h3, h4, h5, h6, p, ol, ul, dl, dt, dd, button, input, a {
     max-width: 500px;
     border-radius: 25px;
     margin-top: 40px;
+}
+.editTravelerForm {
+    background-color: white;
+    height: 570px;
+    width: 560px;
+    padding-top: 10px;
+    border-radius: 25px;
+    border: 1px solid black;
+    margin-left: -50px;
+    margin-right: 10px;
+}
+.editTransportForm {
+    background-color: white;
+    height: 570px;
+    width: 560px;
+    padding-top: 10px;
+    border-radius: 25px;
+    border: 1px solid black;
+    margin-left: -50px;
+    margin-right: 10px;
+}
+.editLodgingForm {
+    background-color: white;
+    height: 570px;
+    width: 560px;
+    padding-top: 10px;
+    border-radius: 25px;
+    border: 1px solid black;
+    margin-left: -50px;
+    margin-right: 10px;
+}
+.editActivityForm {
+    background-color: white;
+    height: 570px;
+    width: 560px;
+    padding-top: 10px;
+    border-radius: 25px;
+    border: 1px solid black;
+    margin-left: -50px;
+    margin-right: 10px;
 }

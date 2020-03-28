@@ -4,44 +4,56 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
-
-<h4>ActivityEvent</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="ActivityName" class="control-label"></label>
-                <input asp-for="ActivityName" class="form-control" />
-                <span asp-validation-for="ActivityName" class="text-danger"></span>
+<div>
+    <img class="editImage" src="~/images/editactivity.jpg" alt="beach">
+</div>
+<br />
+<br />
+<div class="container">
+    <div class="col-5">
+        <div class="card editActivityForm">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3>E d i t &nbsp; A c t i v i t y</h3>
+                        <br />
+                        <br />
+                        <form asp-action="Edit">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <input type="hidden" asp-for="Id" />
+                            <div class="form-group">
+                                <label asp-for="ActivityName" class="control-label"></label>
+                                <input asp-for="ActivityName" class="form-control" />
+                                <span asp-validation-for="ActivityName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Description" class="control-label"></label>
+                                <input asp-for="Description" class="form-control" />
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="ActivityWebsite" class="control-label"></label>
+                                <input asp-for="ActivityWebsite" class="form-control" />
+                                <span asp-validation-for="ActivityWebsite" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="CityId" class="control-label"></label>
+                                <select asp-for="CityId" class="form-control" asp-items="ViewBag.CityId"></select>
+                                <span asp-validation-for="CityId" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Save" class="btn btn-outline-dark" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ActivityWebsite" class="control-label"></label>
-                <input asp-for="ActivityWebsite" class="form-control" />
-                <span asp-validation-for="ActivityWebsite" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CityId" class="control-label"></label>
-                <select asp-for="CityId" class="form-control" asp-items="ViewBag.CityId"></select>
-                <span asp-validation-for="CityId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
 <div>
-    <a asp-action="Details" asp-controller="Cities" asp-route-id="@Model.CityId">Back to City Details</a>
+    <a class="btn btn-outline-dark" asp-action="Details" asp-controller="Cities" asp-route-id="@Model.CityId">Back to City Details</a>
 </div>
 
 @section Scripts {
