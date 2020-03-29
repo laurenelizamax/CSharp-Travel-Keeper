@@ -1,19 +1,25 @@
 ﻿@model IEnumerable<CSharpTravelKeeper.Models.Trip>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Trips";
 }
 
 
-<h1 class="text-light">My Trips</h1>
+<h1 class="text-dark">My Trips</h1>
 
 <p>
-    <a class="btn btn-outline-light" asp-action="Create">Add Trip</a>
-    <a class="btn btn-outline-light" asp-action="Create" asp-controller="Cities">Add City</a>
-    <a class="btn btn-outline-light" asp-action="Create" asp-controller="Travelers">Add Traveler</a>
+    <a class="btn btn-outline-dark" asp-action="Create">Add Trip</a>
+    <a class="btn btn-outline-dark" asp-action="Create" asp-controller="Cities">Add City</a>
+    <a class="btn btn-outline-dark" asp-action="Create" asp-controller="Travelers">Add Traveler</a>
 </p>
 
-<body class="tripIndex">
+
+    <div>
+        <img class="tripListPhoto" src="~/images//triplist3.jpg" alt="movies" style="max-height: 300px; min-height: 200px; max-width:1500px; min-width:1200px;">  &nbsp;
+    </div>
+
+
+
     <br />
     <br />
     <div class="container">
@@ -24,11 +30,11 @@
                 <div class="col-3">
                     <div class="card indexCard">
                         <div class="card-body">
-                            <h5 class="card-title">
+                            <h4 class="card-title">
 
                                 @Html.DisplayFor(modelItem => item.TripTitle)
 
-                            </h5>
+                            </h4>
                             <p class="card-text">
                                 @Html.DisplayNameFor(modelItem => item.StartDate) :
                                 @Html.DisplayFor(modelItem => item.StartDate)
@@ -37,12 +43,12 @@
                                 @Html.DisplayNameFor(modelItem => item.EndDate) :
                                 @Html.DisplayFor(modelItem => item.EndDate)
                             </p>
-                            <p>Travelers: </p>
+                            @*<p>Travelers: </p>
                             <p>
                                 @foreach (var traveler in item.Travelers)
                                 {
                                     <div>
-                                        <a class="text-dark"  asp-action="Details" asp-controller="Travelers" asp-route-id="@traveler.Id">@Html.DisplayFor(modelItem => traveler.FellowTraveler)</a> <br />
+                                        <a class="btn btn-outline-dark"  asp-action="Details" asp-controller="Travelers" asp-route-id="@traveler.Id">@Html.DisplayFor(modelItem => traveler.FellowTraveler)</a> <br />
                                     </div>
                                 }
                             </p>
@@ -53,14 +59,14 @@
                                         @if (city.IsActive == true)
                                         {
                                             <div>
-                                                <a class="text-dark" asp-action="Details" asp-controller="Cities" asp-route-id="@city.Id">@Html.DisplayFor(modelItem => city.CityName)</a> <br />
+                                                <a class="btn btn-outline-dark" asp-action="Details" asp-controller="Cities" asp-route-id="@city.Id">@Html.DisplayFor(modelItem => city.CityName)</a> <br />
                                             </div>
                                         }
                                     }
-                                </p>
+                                </p>*@
 
                                 <p>
-                                    <a class="text-dark" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                                    <a class="btn btn-outline-dark" asp-action="Details" asp-route-id="@item.Id">Details</a>
                                 </p>
 
                             </div>
@@ -69,4 +75,3 @@
             }
         </div>
     </div>
-</body>
