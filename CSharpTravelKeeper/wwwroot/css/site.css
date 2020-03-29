@@ -84,12 +84,13 @@ h1, h2, h3, h4, h5, h6, p, ol, ul, dl, dt, dd, button, input, a {
     margin-top: 20px;
     height: auto;
     width: auto;
-    background-color: #E1D9B5;
+    border-radius: 25px;
+    border: 1px solid black;
 }
 
 .addCity {
     background-color: white;
-    height: 700px;
+    height: 500px;
     width: 500px;
     padding-top: 10px;
     border-radius: 25px;
@@ -117,13 +118,13 @@ h1, h2, h3, h4, h5, h6, p, ol, ul, dl, dt, dd, button, input, a {
     margin-left: -50px;
     margin-right: 10px;
 }
-.tripIndex {
-    background-image: url("../images/paper2.jpg");
+/*.tripIndex {
+    background-image: url("../images/tripdetails.jpg");
     background-repeat: no-repeat;
     background-attachment: fixed;
     max-height: 1000px;
     max-width: 1500px;
-}
+}*/
 .navbar {
     max-height: 65px;
     padding-bottom: -40px;
@@ -135,7 +136,7 @@ h1, h2, h3, h4, h5, h6, p, ol, ul, dl, dt, dd, button, input, a {
     height: 600px;
     width: 500px;
     padding-top: 10px;
-    padding-left: 20px;
+    padding-left: 40px;
     border-radius: 25px;
     border: 1px solid black;
     margin-left: -50px;
@@ -219,18 +220,17 @@ h1, h2, h3, h4, h5, h6, p, ol, ul, dl, dt, dd, button, input, a {
     max-height: 640px;
     max-width: 550px;
     border-radius: 25px;
-    margin-top:40px;
+    margin-top: 40px;
+    border: 1px solid black;
 }
-/*.backList {
-    float: right;
-    margin-top: 20px;
-}*/
+
 .detailsImage {
     float: right;
     max-height: 640px;
     max-width: 500px;
     border-radius: 25px;
     margin-top: 40px;
+    border: 1px solid black;
 }
 .editTravelerForm {
     background-color: white;
@@ -291,4 +291,9 @@ h1, h2, h3, h4, h5, h6, p, ol, ul, dl, dt, dd, button, input, a {
     border: 1px solid black;
     margin-left: -50px;
     margin-right: 10px;
+}
+.tripListPhoto {
+    margin-left: -50px;
+    border-radius: 25px;
+    border: 1px solid black;
 }
